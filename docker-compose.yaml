@@ -1,0 +1,10 @@
+web:
+  image: laraedit/laraedit:latest
+  restart: always
+  ports:
+    - "8000:80" # web
+    - "11122:22" # ssh
+    - "33060:3306" # mysql
+  volumes:
+    - ~/Code:/www/Code
+    - ~/.composer:/home/homestead/.composer
