@@ -15,7 +15,9 @@ touch $filename
 
 # dump table partial rows
 mysqldump -h $HOST -u $DB_USER -p$DB_PWD $DB schools --where="id=$school_id" > "${filename}"
-mysqldump -h $HOST -u $DB_USER -p$DB_PWD $DB school_tests --where="school_id=$school_id" >> "${filename}"
+mysqldump -h $HOST -u $DB_USER -p$DB_PWD --skip-lock-tables $DB platforms >> "${filename}"
+mysqldump -h $HOST -u $DB_USER -p$DB_PWD --skip-lock-tables $DB school_tests --where="school_id=$school_id" >> "${filename}"
+mysqldump -h $HOST -u $DB_USER -p$DB_PWD --skip-lock-tables $DB users --where="user_type = 1 or user_name in (select admin_user_name from schools where id = $school_id)" >> "${filename}"
 mysqldump -h $HOST -u $DB_USER -p$DB_PWD --skip-lock-tables $DB tests --where="id in (select test_id from school_tests where school_id=$school_id)" >> "${filename}"
 mysqldump -h $HOST -u $DB_USER -p$DB_PWD --skip-lock-tables $DB test_evaluations --where="school_id=0" >> "${filename}"
 mysqldump -h $HOST -u $DB_USER -p$DB_PWD --skip-lock-tables $DB product_attr_catalogs --where="test_id in (select test_id from school_tests where school_id=$school_id)" >> "${filename}"
