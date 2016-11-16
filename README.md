@@ -6,9 +6,9 @@ eBizTop基于php和mysql开发，使用了php的laravel框架。部署的服务器必须运行在linux上
 
 ## 环境准备
 
-我们部署的操作系统使用 **Ubuntu server 16.04 LTS 64位**， 下载地址为：[Ubuntu 16.04](http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-server-amd64.iso), 首先按正常方式先安装操作系统，最好能够连外网。
+我们部署的操作系统使用 **ubuntu desktop 16.04.1 LTS 64位**， 下载地址为：[Ubuntu 16.04.1](http://mirrors.aliyun.com/ubuntu-releases/16.04.1/ubuntu-16.04.1-desktop-amd64.iso), 首先按正常方式先安装操作系统，最好能够连外网。安装时请新建一个 **maxwell** 的用户名，后面启动 docker 容器时会用到。也可以安装好后，再新建这个用户。
 
-OS安装好后，需要通过USB把，docker 程序本身，docker-compose 配置文件，ebiztop 的 docker 镜像和 ebiztop 程序本身等文件复制到新装的 Ubuntu 系统上。复制后操作步骤如下：
+OS安装好后，需要通过USB把，docker 程序本身，docker-compose 配置文件，ebiztop 的 docker 镜像和 ebiztop 程序本身等文件复制到新装的 Ubuntu 系统上，路径为， /home/maxwell。然后打开命令行终端，并转到复制文件所在目录。复制后操作步骤如下：
 
 ### 安装 docker
 
@@ -51,6 +51,20 @@ docker exec -it maxwell_web_1 /bin/bash
 ```
 
 其中的 maxwell_web_1 是刚开启的 docker 容器的名称。 可以通过 **docker ps**  查看。
+登录容器后，需要修改 web 的配置，设置正确的系统访问地址，操作如下：
+
+```shell
+cd /www/eBizTop/web
+vim .env
+```
+
+修改以下配置项：
+
+```
+APP_URL=http://www.ebiztop.com
+```
+
+把这个地址修改成当前部署服务器的ip或域名。 最后不要带'/'。
 
 ### mysql 数据库设置
 
@@ -80,4 +94,20 @@ php artisan route:clear
 
 ### 截图功能
 
-TODO
+截图程序基于 NodeJs，登录到容器后，先修改配置文件(/www/eBizTop/screenshot/config.json), 修改其中的 server 地址，设置成当前部署的这台服务器的ip或域名：
+
+```javascript
+{
+  "server": "http://www.ebiztop.com/case/"
+}
+````
+
+执行执行以下命令开启截图服务。
+
+```shell
+pm2 start process.yml
+```
+
+## 访问系统
+
+打开浏览器，输入部署器的 ip 或域名即可访问系统。 每个学校有一个学校管理员的账号，登录后即可使用系统。具体详见操作手册。
