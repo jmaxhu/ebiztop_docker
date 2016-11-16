@@ -7,4 +7,4 @@ web:
     - "33060:3306" # mysql
   volumes:
     - /home/maxwell/eBizTop:/www/eBizTop
-    - /home/maxwell/db/ebiztop:/var/lib/mysql/ebiztop
+    - /home/maxwell/db:/var/lib/mysql
