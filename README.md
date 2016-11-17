@@ -68,20 +68,17 @@ APP_URL=http://www.ebiztop.com
 
 ### mysql 数据库设置
 
-docker 镜像已经安装和配置好了数据库服务，在 docker-compose 启动时会自动挂载 db 目录到 mysql 的数据文件目录（/var/lib/mysql），这样就实现了数据的持久保存。
-
-初始数据的处理有两种方式：
-
-1. 事先准备好 ebiztop 的数据，包括初始表结构，及某个学校的数据。 制作过程中需要注意使用相同的版本，避免不同版本生成的 db 文件不兼容。
-2. 用脚本初始化。sql 目录下有一个 **dump_school.sh** 的脚本，该脚本用来根据学校导致该学校的相关数据，生成类似 school_27.sql 这样的文件。具体执行命令如下（登录到docker容器执行）：
+docker 镜像已经安装和配置好了数据库服务，在 docker-compose 启动时会自动挂载 db下的 ebiztop 目录（初始时是空目录）到 mysql 的数据文件目录（/var/lib/mysql/ebiztop），这样就实现了数据的持久保存。容器启动后，通过先初始化库结构及初始数据，然后用脚本初始化学校数据。sql 目录下有个编号为27的学校的sql脚本， school_27.sql 通过导入该脚本实现学校数据初始化。具体执行命令如下（登录到docker容器执行）：
 
 ```shell
+sudo chmod +R 777 /var/lib/mysql/ebiztop
+
 cd /www/eBizTop/web
 
 php artisan migrate
 php artisan db:seed
 
-mysql -u homestead -p ebiztop < school_27.sql
+mysql -u homestead -psecret ebiztop < school_27.sql
 ```
 
 访问系统前可以考虑执行一些清理操作。
