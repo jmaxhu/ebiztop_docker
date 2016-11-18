@@ -18,4 +18,4 @@ RUN chmod +x /*.sh
 RUN ./provision.sh
 
 EXPOSE 80 22 35729 9876
-CMD ["/bin/bash", "/startup.sh"]
+CMD ["/usr/bin/supervisord"]

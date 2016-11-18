@@ -1,5 +1,5 @@
 web:
-  image: ebiztop:v1.1
+  image: ebiztop:v1.2
   restart: always
   ports:
     - "80:80" # web
@@ -8,3 +8,4 @@ web:
   volumes:
     - /home/maxwell/eBizTop:/www/eBizTop
     - /home/maxwell/db:/var/lib/mysql
+	command: /startup.sh
