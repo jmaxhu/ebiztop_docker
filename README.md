@@ -1,110 +1,97 @@
-# eBizTopÏµÍ³²¿ÊðÖ¸ÄÏ
+# eBizTopç³»ç»Ÿéƒ¨ç½²æŒ‡å—
 
-## ¸ÅÊö
+## æ¦‚è¿°
 
-eBizTop»ùÓÚphpºÍmysql¿ª·¢£¬Ê¹ÓÃÁËphpµÄlaravel¿ò¼Ü¡£²¿ÊðµÄ·þÎñÆ÷±ØÐëÔËÐÐÔÚlinuxÉÏ¡£ÎªÁË·½±ã²¿Êð£¬°ÑeBizTopÔËÐÐ»·¾³´ò°ü³Édocker¾µÏñ£¬·¢²¼µ½ÔËÐÐlinuxµÄÏµÍ³ÉÏ£¬ÀíÂÛÉÏÒ²¿ÉÒÔ°²×°µ½Ö§³ÖdockerµÄwin10µÈÏµÍ³ÉÏ¡£
+eBizTopåŸºäºŽphpå’Œmysqlå¼€å‘ï¼Œä½¿ç”¨äº†phpçš„laravelæ¡†æž¶ã€‚éƒ¨ç½²çš„æœåŠ¡å™¨å¿…é¡»è¿è¡Œåœ¨linuxä¸Šã€‚ä¸ºäº†æ–¹ä¾¿éƒ¨ç½²ï¼ŒæŠŠeBizTopè¿è¡ŒçŽ¯å¢ƒæ‰“åŒ…æˆdockeré•œåƒï¼Œå‘å¸ƒåˆ°è¿è¡Œlinuxçš„ç³»ç»Ÿä¸Šã€‚
 
-## »·¾³×¼±¸
+## çŽ¯å¢ƒå‡†å¤‡
 
-ÎÒÃÇ²¿ÊðµÄ²Ù×÷ÏµÍ³Ê¹ÓÃ **ubuntu desktop 16.04.1 LTS 64Î»**£¬ ÏÂÔØµØÖ·Îª£º[Ubuntu 16.04.1](http://mirrors.aliyun.com/ubuntu-releases/16.04.1/ubuntu-16.04.1-desktop-amd64.iso), Ê×ÏÈ°´Õý³£·½Ê½ÏÈ°²×°²Ù×÷ÏµÍ³£¬×îºÃÄÜ¹»Á¬ÍâÍø¡£°²×°Ê±ÇëÐÂ½¨Ò»¸ö **maxwell** µÄÓÃ»§Ãû£¬ºóÃæÆô¶¯ docker ÈÝÆ÷Ê±»áÓÃµ½¡£Ò²¿ÉÒÔ°²×°ºÃºó£¬ÔÙÐÂ½¨Õâ¸öÓÃ»§¡£
+æˆ‘ä»¬éƒ¨ç½²çš„æ“ä½œç³»ç»Ÿä½¿ç”¨ **ubuntu desktop 16.04.1 LTS 64ä½**ï¼Œ ä¸‹è½½åœ°å€ä¸ºï¼š[Ubuntu 16.04.1](http://mirrors.aliyun.com/ubuntu-releases/16.04.1/ubuntu-16.04.1-desktop-amd64.iso), é¦–å…ˆæŒ‰æ­£å¸¸æ–¹å¼å…ˆå®‰è£…æ“ä½œç³»ç»Ÿï¼Œæœ€å¥½èƒ½å¤Ÿè¿žå¤–ç½‘ã€‚å®‰è£…æ—¶è¯·æ–°å»ºä¸€ä¸ª **maxwell** çš„ç”¨æˆ·åï¼ŒåŽé¢å¯åŠ¨ docker å®¹å™¨æ—¶ä¼šç”¨åˆ°ã€‚ä¹Ÿå¯ä»¥å®‰è£…å¥½åŽï¼Œå†æ–°å»ºè¿™ä¸ªç”¨æˆ·ã€‚
 
-OS°²×°ºÃºó£¬ÐèÒªÍ¨¹ýUSB°Ñ£¬docker ³ÌÐò±¾Éí£¬docker-compose ÅäÖÃÎÄ¼þ£¬ebiztop µÄ docker ¾µÏñºÍ ebiztop ³ÌÐò±¾ÉíµÈÎÄ¼þ¸´ÖÆµ½ÐÂ×°µÄ Ubuntu ÏµÍ³ÉÏ£¬Â·¾¶Îª£¬ /home/maxwell¡£È»ºó´ò¿ªÃüÁîÐÐÖÕ¶Ë£¬²¢×ªµ½¸´ÖÆÎÄ¼þËùÔÚÄ¿Â¼¡£¸´ÖÆºó²Ù×÷²½ÖèÈçÏÂ£º
+OSå®‰è£…å¥½åŽï¼Œéœ€è¦é€šè¿‡USBæŠŠï¼Œdocker ç¨‹åºæœ¬èº«ï¼Œdocker-compose é…ç½®æ–‡ä»¶ï¼Œebiztop çš„ docker é•œåƒå’Œ ebiztop ç¨‹åºæœ¬èº«ç­‰æ–‡ä»¶å¤åˆ¶åˆ°æ–°è£…çš„ Ubuntu ç³»ç»Ÿä¸Šï¼Œè·¯å¾„ä¸ºï¼Œ /home/maxwellã€‚ç„¶åŽæ‰“å¼€å‘½ä»¤è¡Œç»ˆç«¯ï¼Œå¹¶è½¬åˆ°å¤åˆ¶æ–‡ä»¶æ‰€åœ¨ç›®å½•ã€‚å¤åˆ¶åŽæ“ä½œæ­¥éª¤å¦‚ä¸‹ï¼š
 
-### °²×° docker
+### å®‰è£… docker
 
-°Ñ docker ÎÄ¼þ¸´ÖÆµ½ /usr/bin Ä¿Â¼¡£
+æŠŠ docker æ–‡ä»¶å¤åˆ¶åˆ° /usr/bin ç›®å½•ã€‚
 
 ```shell
 sudo cp docker/* /usr/bin
 ```
 
-#### ¿ªÆô dockerd ·þÎñ
-
-TODO£ºÊ¹ÓÃ scripts Ä¿Â¼ÏÂµÄ·þÎñ½Å±¾£¬°²×° dockerd Îª·þÎñ¡£
-
-¼òµ¥¿ªÆô dockerd£¬×¢ÒâÅäÖÃÑ¡Ïî£¬±ÈÈçÄÚ´æµÈ¡£
+#### å¼€å¯ dockerd æœåŠ¡
 
 ```shell
 sudo dockerd &
 ```
 
-### ×¼±¸ docker ¾µÏñ
+### å‡†å¤‡ docker é•œåƒ
 
-dockerd ¿ªÆôºó£¬¾Í¿ÉÒÔ»¹Ô­ eBizTop µÄ docker ¾µÏñÁË(ebiztop_docker.tar)¡£ **×¢Òâ£ºdocker ²Ù×÷±ØÐëÔÚ root ÏÂ²Ù×÷**¡£
+dockerd å¼€å¯åŽï¼Œå°±å¯ä»¥è¿˜åŽŸ eBizTop çš„ docker é•œåƒäº†(ebiztop_docker.tar.bz2)ã€‚ **æ³¨æ„ï¼šdocker æ“ä½œå¿…é¡»åœ¨ root ä¸‹æ“ä½œ**ã€‚
 
 ```shell
-docker load < ebiztop_docker.tar
+tar xjvf ebiztop_docker.tar.bz2 # å…ˆè§£åŽ‹
+docker load < ebiztop_web.tar
+docker load < ebiztop_db.tar
 ```
 
-¼ì²é docker-compose.yaml ÎÄ¼þ£¬µ÷ÕûÏà¹ØÅäÖÃÏî¡£Ö÷ÒªÊÇÊý¾Ý¾íµÄÅäÖÃ£¬**Êý¾Ý¾íµÄÓ³Éä±ØÐëÊ¹ÓÃ¾ø¶ÔÂ·¾¶**¡£Ê¹ÓÃÈçÏÂÃüÁî¿ªÆô¾µÏñ¡£ÆäÖÐÒª¼ì²éÏÂ¶Ë¿ÚÓ³Éä£¬Èç¹ûÊÇÕýÊ½·¢²¼£¬×îºÃÓ³ÉäµÄ¶Ë¿ÚÒ»ÖÂ£¬±ÈÈç£º"80:80"£¬ÕâÑù±ãÓÚ·ÃÎÊ¡£
+### å‡†å¤‡ eBizTop ç¨‹åº
+
+ç¡®è®¤å½“å‰ç›®å½•ä¸‹æœ‰ä»¥ä¸‹æ–‡ä»¶å’Œç›®å½•ã€‚ docker-compose.yml, eBizTop.tar.gz, sql, db(åˆæ¬¡å®‰è£…è¯¥ç›®å½•ä¸ºç©º)
+
+```shell
+tar xzf eBizTop.tar.gz
+```
+
+### å¯åŠ¨ docker
 
 ```shell
 docker-compose up
 ```
 
-### µÇÂ¼µ½ docker ÈÝÆ÷
+### ç™»å½•åˆ° docker å®¹å™¨
 
-Ê¹ÓÃÈçÏÂÃüÁîµÇÂ¼µ½ÐÂ¿ªÆôµÄ docker ÈÝÆ÷£¬ ¸ÃÃüÁî±ØÐëÔÚ **root** ÏÂÖ´ÐÐ¡£
-
-```shell
-docker exec -it maxwell_web_1 /bin/bash
-```
-
-ÆäÖÐµÄ maxwell_web_1 ÊÇ¸Õ¿ªÆôµÄ docker ÈÝÆ÷µÄÃû³Æ¡£ ¿ÉÒÔÍ¨¹ý **docker ps**  ²é¿´¡£
-µÇÂ¼ÈÝÆ÷ºó£¬ÐèÒªÐÞ¸Ä web µÄÅäÖÃ£¬ÉèÖÃÕýÈ·µÄÏµÍ³·ÃÎÊµØÖ·£¬²Ù×÷ÈçÏÂ£º
+ä½¿ç”¨å¦‚ä¸‹å‘½ä»¤ç™»å½•åˆ°æ–°å¼€å¯çš„ docker å®¹å™¨ï¼Œ è¯¥å‘½ä»¤å¿…é¡»åœ¨ **root** ä¸‹æ‰§è¡Œã€‚
 
 ```shell
-cd /www/eBizTop/web
-vim .env
+docker exec -it ebiztop_web /bin/bash
 ```
 
-ÐÞ¸ÄÒÔÏÂÅäÖÃÏî£º
-
-```
-APP_URL=http://www.ebiztop.com
-```
-
-°ÑÕâ¸öµØÖ·ÐÞ¸Ä³Éµ±Ç°²¿Êð·þÎñÆ÷µÄip»òÓòÃû¡£ ×îºó²»Òª´ø'/'¡£
-
-### mysql Êý¾Ý¿âÉèÖÃ
-
-docker ¾µÏñÒÑ¾­°²×°ºÍÅäÖÃºÃÁËÊý¾Ý¿â·þÎñ£¬ÔÚ docker-compose Æô¶¯Ê±»á×Ô¶¯¹ÒÔØ dbÏÂµÄ ebiztop Ä¿Â¼£¨³õÊ¼Ê±ÊÇ¿ÕÄ¿Â¼£©µ½ mysql µÄÊý¾ÝÎÄ¼þÄ¿Â¼£¨/var/lib/mysql/ebiztop£©£¬ÕâÑù¾ÍÊµÏÖÁËÊý¾ÝµÄ³Ö¾Ã±£´æ¡£ÈÝÆ÷Æô¶¯ºó£¬Í¨¹ýÏÈ³õÊ¼»¯¿â½á¹¹¼°³õÊ¼Êý¾Ý£¬È»ºóÓÃ½Å±¾³õÊ¼»¯Ñ§Ð£Êý¾Ý¡£sql Ä¿Â¼ÏÂÓÐ¸ö±àºÅÎª27µÄÑ§Ð£µÄsql½Å±¾£¬ school_27.sql Í¨¹ýµ¼Èë¸Ã½Å±¾ÊµÏÖÑ§Ð£Êý¾Ý³õÊ¼»¯¡£¾ßÌåÖ´ÐÐÃüÁîÈçÏÂ£¨µÇÂ¼µ½dockerÈÝÆ÷Ö´ÐÐ£©£º
+å…¶ä¸­çš„ ebiztop_web æ˜¯åˆšå¼€å¯çš„ docker å®¹å™¨çš„åç§°ã€‚ å¯ä»¥é€šè¿‡ **docker ps**  æŸ¥çœ‹ã€‚
+ç™»å½•å®¹å™¨åŽï¼Œéœ€è¦ä¿®æ”¹ web çš„é…ç½®ï¼Œè®¾ç½®æ­£ç¡®çš„ç³»ç»Ÿè®¿é—®åœ°å€ï¼Œå¹¶åˆå§‹åŒ–è¡¨ç»“æž„å’Œåˆå§‹æ•°æ®ã€‚æ“ä½œå¦‚ä¸‹ï¼š
 
 ```shell
-sudo chmod +R 777 /var/lib/mysql/ebiztop
-
 cd /www/eBizTop/web
 
 php artisan migrate
 php artisan db:seed
+php artisan clear-compiled
+
+vim .env
+```
+
+ä¿®æ”¹ä»¥ä¸‹é…ç½®é¡¹ï¼š
+
+```
+APP_URL=http://www.ebiztop.com
+
+DB_HOST=db
+```
+
+æŠŠ APP_URL è¿™ä¸ªåœ°å€ä¿®æ”¹æˆå½“å‰éƒ¨ç½²æœåŠ¡å™¨çš„ipæˆ–åŸŸåã€‚ æœ€åŽä¸è¦å¸¦'/'ã€‚æŠŠ DB_HOST æ”¹æˆ dbã€‚
+
+### mysql æ•°æ®åº“è®¾ç½®
+
+mysql çŽ°åœ¨åœ¨å•ç‹¬çš„å®¹å™¨é‡Œè¿è¡Œï¼ˆebiztop_dbï¼‰ã€‚æ•°æ®åº“æ•°æ®é€šè¿‡æ•°æ®å·çš„æ–¹å¼æ˜ å°„åˆ° db ç›®å½•ã€‚å®‰è£…æ—¶å®¹å™¨ä¼šè‡ªåŠ¨åˆå§‹åŒ–mysqlçš„ç³»ç»Ÿç›¸å…³è¡¨ï¼Œæ‰€åœ¨è¯·åˆæ¬¡å®‰è£…æ—¶è¯·**ä¿è¯dbç›®å½•ä¸ºç©º**ã€‚
+ebiztopçš„æ•°æ®åº“åœ¨å®¹å™¨åˆå§‹åŒ–æ—¶å·²æ–°å»ºï¼Œä½†éœ€è¦æ‰‹å·¥åˆå§‹åŒ–è¡¨ç»“æž„åŠå¯¼å…¥å­¦æ ¡ç›¸å…³æ•°æ®ã€‚æ“ä½œå¦‚ä¸‹ã€‚
+
+```shell
+docker exec -it ebiztop_db /bin/bash
+
+cd sql
 
 mysql -u homestead -psecret ebiztop < school_27.sql
 ```
 
-·ÃÎÊÏµÍ³Ç°¿ÉÒÔ¿¼ÂÇÖ´ÐÐÒ»Ð©ÇåÀí²Ù×÷¡£
+## è®¿é—®ç³»ç»Ÿ
 
-```shell
-php artisan clear-compiled
-php artisan route:clear
-....
-```
-
-### ½ØÍ¼¹¦ÄÜ
-
-½ØÍ¼³ÌÐò»ùÓÚ NodeJs£¬µÇÂ¼µ½ÈÝÆ÷ºó£¬ÏÈÐÞ¸ÄÅäÖÃÎÄ¼þ(/www/eBizTop/screenshot/config.json), ÐÞ¸ÄÆäÖÐµÄ server µØÖ·£¬ÉèÖÃ³Éµ±Ç°²¿ÊðµÄÕâÌ¨·þÎñÆ÷µÄip»òÓòÃû£º
-
-```javascript
-{
-  "server": "http://www.ebiztop.com/case/"
-}
-````
-
-Ö´ÐÐÖ´ÐÐÒÔÏÂÃüÁî¿ªÆô½ØÍ¼·þÎñ¡£
-
-```shell
-pm2 start process.yml
-```
-
-## ·ÃÎÊÏµÍ³
-
-´ò¿ªä¯ÀÀÆ÷£¬ÊäÈë²¿Êð·þÎñÆ÷µÄ ip »òÓòÃû¼´¿É·ÃÎÊÏµÍ³¡£ Ã¿¸öÑ§Ð£ÓÐÒ»¸öÑ§Ð£¹ÜÀíÔ±µÄÕËºÅ£¬µÇÂ¼ºó¼´¿ÉÊ¹ÓÃÏµÍ³¡£¾ßÌåÏê¼û²Ù×÷ÊÖ²á¡£
+æ‰“å¼€æµè§ˆå™¨ï¼Œè¾“å…¥éƒ¨ç½²æœåŠ¡å™¨çš„ ip æˆ–åŸŸåå³å¯è®¿é—®ç³»ç»Ÿã€‚ æ¯ä¸ªå­¦æ ¡æœ‰ä¸€ä¸ªå­¦æ ¡ç®¡ç†å‘˜çš„è´¦å·ï¼Œç™»å½•åŽå³å¯ä½¿ç”¨ç³»ç»Ÿã€‚å…·ä½“è¯¦è§æ“ä½œæ‰‹å†Œã€‚
