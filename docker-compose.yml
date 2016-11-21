@@ -1,11 +1,25 @@
-web:
-  image: ebiztop:v1.2
-  restart: always
-  ports:
-    - "80:80" # web
-    - "11122:22" # ssh
-    - "33060:3306" # mysql
-  volumes:
-    - /home/maxwell/eBizTop:/www/eBizTop
-    - /home/maxwell/db:/var/lib/mysql
-	command: /startup.sh
+version: '2'
+services:
+   db:
+     image: mysql:5.7
+     container_name: ebiztop_db
+     volumes:
+       - /home/maxwell/db:/var/lib/mysql
+       - /home/maxwell/sql:/sql
+     restart: always
+     environment:
+       MYSQL_ROOT_PASSWORD: secret
+       MYSQL_DATABASE: ebiztop
+       MYSQL_USER: homestead
+       MYSQL_PASSWORD: secret
+   web:
+     depends_on:
+       - db
+     image: ebiztop_web:v1.0
+     container_name: ebiztop_web
+     ports:
+       - "80:80"
+     restart: always
+     command: /startup.sh
+     volumes:
+        - /home/maxwell/eBizTop:/www/eBizTop
