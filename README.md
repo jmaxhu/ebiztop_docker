@@ -2,19 +2,20 @@
 
 ## 概述
 
-eBizTop基于php和mysql开发，使用了php的laravel框架。部署的服务器必须运行在linux上。为了方便部署，把eBizTop运行环境打包成docker镜像，发布到运行linux的系统上。
+eBizTop基于php和mysql开发。部署的服务器必须运行在linux上。为了方便部署，把eBizTop运行环境打包成docker镜像，发布到运行linux的系统上。
 
 ## 环境准备
 
-我们部署的操作系统使用 **ubuntu desktop 16.04.1 LTS 64位**， 下载地址为：[Ubuntu 16.04.1](http://mirrors.aliyun.com/ubuntu-releases/16.04.1/ubuntu-16.04.1-desktop-amd64.iso), 首先按正常方式先安装操作系统，最好能够连外网。安装时请新建一个 **maxwell** 的用户名，后面启动 docker 容器时会用到。也可以安装好后，再新建这个用户。
+我们部署的操作系统使用 **ubuntu desktop 16.04.1 LTS 64位**，也可以用 **ubuntu server 16.04.01 LTS 64位**， desktop版下载地址为：[Ubuntu 16.04.1](http://mirrors.aliyun.com/ubuntu-releases/16.04.1/ubuntu-16.04.1-desktop-amd64.iso), 首先按正常方式先安装操作系统，最好能够连外网。安装时请新建一个 **maxwell** 的用户名，后面启动 docker 容器时会用到。也可以安装好后，再新建这个用户。
 
-OS安装好后，需要通过USB把，docker 程序本身，docker-compose 配置文件，ebiztop 的 docker 镜像和 ebiztop 程序本身等文件复制到新装的 Ubuntu 系统上，路径为， /home/maxwell。然后打开命令行终端，并转到复制文件所在目录。复制后操作步骤如下：
+OS安装好后，需要把 docker 程序本身，docker-compose 配置文件，ebiztop 的 docker 镜像和 ebiztop 程序本身等文件复制到新装的 Ubuntu 系统上，路径为， /home/maxwell。然后打开命令行终端，并转到复制文件所在目录。复制后操作步骤如下：
 
 ### 安装 docker
 
 把 docker 文件复制到 /usr/bin 目录。
 
 ```shell
+sudo chmod a+x docker/*
 sudo cp docker/* /usr/bin
 ```
 
@@ -26,9 +27,11 @@ sudo dockerd &
 
 ### 准备 docker 镜像
 
-dockerd 开启后，就可以还原 eBizTop 的 docker 镜像了(ebiztop_docker.tar.bz2)。 **注意：docker 操作必须在 root 下操作**。
+dockerd 开启后，就可以还原 eBizTop 的 docker 镜像了(ebiztop_docker.tar.bz2)。
 
 ```shell
+sudo su
+
 tar xjvf ebiztop_docker.tar.bz2 # 先解压
 docker load < ebiztop_web.tar
 docker load < ebiztop_db.tar
@@ -78,9 +81,10 @@ DB_HOST=db
 DB_USERNAME=homestead
 DB_PASSWORD=secret
 ```
-把 APP_URL 这个地址修改成当前部署服务器的ip或域名。 最后不要带'/'。把 DB_HOST 改成 db，原来的值可能是127.0.0.1。
+把 APP_URL 这个地址修改成当前部署服务器的ip或域名。 最后不要带'/'。把 DB_HOST 改成 db，原来的值可能是127.0.0.1，DB_USERNAME 和 DB_PASSWORD 请按上面的设置。
+修改好后，按 **:wq**，保存退出。
 
-修改完保存后，再执行如下命令初经化数据库表结构：
+再执行如下命令初经化数据库表结构：
 
 ```shell
 php artisan config:clear
@@ -93,7 +97,7 @@ exit
 
 ### mysql 数据库设置
 
-mysql 现在在单独的容器里运行（ebiztop_db）。数据库数据通过数据卷的方式映射到 db 目录。安装时容器会自动初始化mysql的系统相关表，所以初次安装时请**保证db目录为空**。
+mysql 现在单独的容器里运行（ebiztop_db）。数据库数据通过数据卷的方式映射到 db 目录。安装时容器会自动初始化mysql的系统相关表，所以初次安装时请**保证db目录为空**。
 ebiztop的数据库在容器初始化时自动新建，但需要手工导入学校相关数据。操作如下。
 
 ```shell
@@ -108,4 +112,4 @@ exit
 
 ## 访问系统
 
-打开浏览器，输入部署服务器的 ip 或域名即可访问系统。 每个学校有一个学校管理员的账号，登录后即可使用系统。具体详见操作手册。
+打开浏览器，输入部署服务器的 ip 或域名即可访问系统。 每个学校有一个学校管理员的账号，登录后即可使用系统，具体使用详见操作手册。
