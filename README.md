@@ -84,13 +84,18 @@ DB_PASSWORD=secret
 把 APP_URL 这个地址修改成当前部署服务器的ip或域名。 最后不要带'/'。把 DB_HOST 改成 db，原来的值可能是127.0.0.1，DB_USERNAME 和 DB_PASSWORD 请按上面的设置。
 修改好后，按 **:wq**，保存退出。
 
-再执行如下命令初经化数据库表结构：
+再执行如下命令设置权限和初经化数据库表结构：
 
 ```shell
 php artisan config:clear
 php artisan migrate
 php artisan db:seed
 php artisan clear-compiled
+
+chmod -R a+w upload
+chmod -R a+w images/avatar
+chmod -R a+w images/test
+chmod -R a+w storage
 
 exit
 ```
