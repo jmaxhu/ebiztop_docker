@@ -36,10 +36,13 @@ docker load < ebiztop_db.tar
 
 ### 准备 eBizTop 程序
 
-确认当前目录下有以下文件和目录。 docker-compose.yml, eBizTop.tar.gz, sql, db(初次安装该目录为空)
+确认当前目录下有以下文件和目录。 docker-compose.yml, eBizTop.tar.gz, sql。
 
 ```shell
 tar xzf eBizTop.tar.gz
+
+rm -rf db
+mkdir db
 ```
 
 ### 启动 docker
@@ -69,14 +72,18 @@ vim .env
 
 ```
 APP_URL=http://www.ebiztop.com
+DEPLOY_TYPE=local
 
 DB_HOST=db
+DB_USERNAME=homestead
+DB_PASSWORD=secret
 ```
 把 APP_URL 这个地址修改成当前部署服务器的ip或域名。 最后不要带'/'。把 DB_HOST 改成 db，原来的值可能是127.0.0.1。
 
 修改完保存后，再执行如下命令初经化数据库表结构：
 
 ```shell
+php artisan config:clear
 php artisan migrate
 php artisan db:seed
 php artisan clear-compiled
