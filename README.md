@@ -50,7 +50,7 @@ docker-compose up
 
 ### 登录到 docker 容器
 
-使用如下命令登录到新开启的 docker 容器， 该命令必须在 **root** 下执行。
+使用如下命令登录到新开启的 docker 容器， 该命令必须在 **root** 下执行。新开一个terminal，执行以下命令：
 
 ```shell
 docker exec -it ebiztop_web /bin/bash
@@ -62,10 +62,6 @@ docker exec -it ebiztop_web /bin/bash
 ```shell
 cd /www/eBizTop/web
 
-php artisan migrate
-php artisan db:seed
-php artisan clear-compiled
-
 vim .env
 ```
 
@@ -76,13 +72,20 @@ APP_URL=http://www.ebiztop.com
 
 DB_HOST=db
 ```
+把 APP_URL 这个地址修改成当前部署服务器的ip或域名。 最后不要带'/'。把 DB_HOST 改成 db，原来的值可能是127.0.0.1。
 
-把 APP_URL 这个地址修改成当前部署服务器的ip或域名。 最后不要带'/'。把 DB_HOST 改成 db。
+修改完保存后，再执行如下命令初经化数据库表结构：
+
+```shell
+php artisan migrate
+php artisan db:seed
+php artisan clear-compiled
+```
 
 ### mysql 数据库设置
 
-mysql 现在在单独的容器里运行（ebiztop_db）。数据库数据通过数据卷的方式映射到 db 目录。安装时容器会自动初始化mysql的系统相关表，所在请初次安装时请**保证db目录为空**。
-ebiztop的数据库在容器初始化时已新建，但需要手工初始化表结构及导入学校相关数据。操作如下。
+mysql 现在在单独的容器里运行（ebiztop_db）。数据库数据通过数据卷的方式映射到 db 目录。安装时容器会自动初始化mysql的系统相关表，所以初次安装时请**保证db目录为空**。
+ebiztop的数据库在容器初始化时自动新建，但需要手工导入学校相关数据。操作如下。
 
 ```shell
 docker exec -it ebiztop_db /bin/bash
