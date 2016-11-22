@@ -92,9 +92,9 @@ php artisan migrate
 php artisan db:seed
 php artisan clear-compiled
 
-chmod -R a+w upload
-chmod -R a+w images/avatar
-chmod -R a+w images/test
+chmod -R a+w public/upload
+chmod -R a+w public/images/avatar
+chmod -R a+w public/images/test
 chmod -R a+w storage
 
 exit
@@ -103,14 +103,14 @@ exit
 ### mysql 数据库设置
 
 mysql 现在单独的容器里运行（ebiztop_db）。数据库数据通过数据卷的方式映射到 db 目录。安装时容器会自动初始化mysql的系统相关表，所以初次安装时请**保证db目录为空**。
-ebiztop的数据库在容器初始化时自动新建，但需要手工导入学校相关数据。操作如下。
+ebiztop的数据库在容器初始化时自动新建，但需要手工导入学校相关数据，具体哪个学校，导入时请选择对应的sql文件。操作如下。
 
 ```shell
 docker exec -it ebiztop_db /bin/bash
 
 cd sql
 
-mysql -u homestead -psecret ebiztop < school_27.sql
+mysql -u homestead -psecret ebiztop < school_xx.sql
 
 exit
 ```
