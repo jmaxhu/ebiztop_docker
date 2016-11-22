@@ -50,7 +50,7 @@ docker-compose up
 
 ### 登录到 docker 容器
 
-使用如下命令登录到新开启的 docker 容器， 该命令必须在 **root** 下执行。新开一个terminal，执行以下命令：
+使用如下命令登录到新开启的 docker 容器， 该命令必须在 **root** 下执行。新开一个terminal，执行以下命令，如要退出容器，执行 exit 即可。
 
 ```shell
 docker exec -it ebiztop_web /bin/bash
@@ -80,6 +80,8 @@ DB_HOST=db
 php artisan migrate
 php artisan db:seed
 php artisan clear-compiled
+
+exit
 ```
 
 ### mysql 数据库设置
@@ -93,6 +95,8 @@ docker exec -it ebiztop_db /bin/bash
 cd sql
 
 mysql -u homestead -psecret ebiztop < school_27.sql
+
+exit
 ```
 
 ## 访问系统
