@@ -21,6 +21,7 @@ mysqldump -h $HOST -u $DB_USER -p$DB_PWD  --set-gtid-purged=OFF --skip-lock-tabl
 mysqldump -h $HOST -u $DB_USER -p$DB_PWD  --set-gtid-purged=OFF --skip-lock-tables $DB user_pics --where="school_id=0" >> "${filename}"
 mysqldump -h $HOST -u $DB_USER -p$DB_PWD  --set-gtid-purged=OFF --skip-lock-tables $DB tests --where="id in (select test_id from school_tests where school_id=$school_id)" >> "${filename}"
 mysqldump -h $HOST -u $DB_USER -p$DB_PWD  --set-gtid-purged=OFF --skip-lock-tables $DB test_evaluations --where="school_id=0" >> "${filename}"
+mysqldump -h $HOST -u $DB_USER -p$DB_PWD  --set-gtid-purged=OFF --skip-lock-tables $DB coursewares --where="test_id in (select test_id from school_tests where school_id=$school_id)" >> "${filename}"
 mysqldump -h $HOST -u $DB_USER -p$DB_PWD  --set-gtid-purged=OFF --skip-lock-tables $DB product_attr_catalogs --where="test_id in (select test_id from school_tests where school_id=$school_id)" >> "${filename}"
 mysqldump -h $HOST -u $DB_USER -p$DB_PWD  --set-gtid-purged=OFF --skip-lock-tables $DB product_attr_values --where="test_id in (select test_id from school_tests where school_id=$school_id)" >> "${filename}"
 mysqldump -h $HOST -u $DB_USER -p$DB_PWD  --set-gtid-purged=OFF --skip-lock-tables $DB product_spec_catalogs --where="test_id in (select test_id from school_tests where school_id=$school_id)" >> "${filename}"
