@@ -74,7 +74,7 @@ vim .env
 修改以下配置项：
 
 ```
-APP_URL=http://www.ebiztop.com
+APP_URL=http://192.168.10.8
 DEPLOY_TYPE=local
 
 DB_HOST=db
@@ -92,6 +92,10 @@ php artisan migrate
 php artisan db:seed
 php artisan clear-compiled
 
+php artisan optimize
+php artisan route:cache
+php artisan config:cache
+
 chmod -R a+w public/upload
 chmod -R a+w public/images/avatar
 chmod -R a+w public/images/test
@@ -99,6 +103,18 @@ chmod -R a+w storage
 
 exit
 ```
+
+### 关于截图功能
+
+实验案例系统会自动生成页面截图，功能基于nodejs和phanatomjs，web镜像中已经配置好了相关环境，其中有一个配置文件需要确认下，文件路径为: /www/eBizTop/screenshot/config.json
+
+```javascript
+{
+  "server": "http://localhost/case/"
+}
+```
+
+其中 server 设置的网址使用 localhost 即可。
 
 ### mysql 数据库设置
 
