@@ -7,6 +7,8 @@ services:
        - /home/maxwell/db:/var/lib/mysql
        - /home/maxwell/sql:/sql
      restart: always
+     ports:
+       - "13306:3306"
      environment:
        MYSQL_ROOT_PASSWORD: secret
        MYSQL_DATABASE: ebiztop
@@ -19,7 +21,6 @@ services:
      container_name: ebiztop_web
      ports:
        - "80:80"
-       - "3306:3306"
      restart: always
      command: /startup.sh
      volumes:

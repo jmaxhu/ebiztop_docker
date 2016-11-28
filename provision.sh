@@ -15,22 +15,19 @@ echo "LC_ALL=en_US.UTF-8" >> /etc/default/locale
 locale-gen en_US.UTF-8
 export LANG=en_US.UTF-8
 
-# Install ssh server
-apt-get -y install openssh-server pwgen
-mkdir -p /var/run/sshd
-sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config
-sed -i "s/UsePAM.*/UsePAM no/g" /etc/ssh/sshd_config
-sed -i "s/PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config
-
 # Basic packages
 apt-get install -y sudo software-properties-common nano curl \
-build-essential dos2unix gcc git git-flow libmcrypt4 libpcre3-dev apt-utils \
-make python2.7-dev python-pip re2c supervisor unattended-upgrades whois vim zip unzip libnotify-bin
+build-essential dos2unix gcc git git-flow libmcrypt4 libpcre3-dev apt-utils xfonts-utils \
+make python2.7-dev python-pip re2c supervisor unattended-upgrades whois vim zip unzip libnotify-bin \
+
+# for phantomjs
+apt-get install -y chrpath libssl-dev libxft-dev
+apt-get install -y libfreetype6 libfreetype6-dev
+apt-get install -y libfontconfig1 libfontconfig1-dev
 
 # Install Some PPAs
 
 apt-add-repository ppa:nginx/development -y
-apt-add-repository ppa:chris-lea/redis-server -y
 apt-add-repository ppa:ondrej/php -y
 
 # gpg: key 5072E1F5: public key "MySQL Release Engineering <mysql-build@oss.oracle.com>" imported
@@ -80,12 +77,6 @@ mv composer.phar /usr/local/bin/composer
 
 printf "\nPATH=\"$(sudo su - homestead -c 'composer config -g home 2>/dev/null')/vendor/bin:\$PATH\"\n" | tee -a /home/homestead/.profile
 
-# Install Laravel Envoy & Installer
-
-sudo su homestead <<'EOF'
-/usr/local/bin/composer global require "laravel/envoy=~1.0"
-/usr/local/bin/composer global require "laravel/installer=~1.1"
-EOF
 
 # Set Some PHP CLI Settings
 
@@ -164,92 +155,28 @@ sed -i "s/;listen\.mode.*/listen.mode = 0666/" /etc/php/7.0/fpm/pool.d/www.conf
 
 apt-get install -y nodejs
 
-/usr/bin/npm install -g grunt-cli
-/usr/bin/npm install -g gulp
-/usr/bin/npm install -g bower
-/usr/bin/npm install -g yarn
+# Install pm2
 /usr/bin/npm install -g pm2
 
-# Install SQLite
+# Install phantomjs
+cd /
+tar xvjf phantomjs-2.1.1-linux-x86_64.tar.bz2
+mv phantomjs-2.1.1-linux-x86_64 /usr/local/share
+ln -sf /usr/local/share/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin
 
-apt-get install -y sqlite3 libsqlite3-dev
+rm -rf phantomjs-2.1.1-linux-x86_64.tar.bz2
 
-# Install MySQL
+# Install simsun font
+chmod 644 /usr/share/fonts/simsun.ttc
+mkfontscale
+mkfontdir
 
-debconf-set-selections <<< "mysql-community-server mysql-community-server/data-dir select ''"
-debconf-set-selections <<< "mysql-community-server mysql-community-server/root-pass password secret"
-debconf-set-selections <<< "mysql-community-server mysql-community-server/re-root-pass password secret"
-apt-get install -y mysql-server
-
-# Configure MySQL Password Lifetime
-
-echo "default_password_lifetime = 0" >> /etc/mysql/mysql.conf.d/mysqld.cnf
-
-# Configure MySQL Remote Access
-
-sed -i '/^bind-address/s/bind-address.*=.*/bind-address = 0.0.0.0/' /etc/mysql/mysql.conf.d/mysqld.cnf
-
-mysql --user="root" --password="secret" -e "GRANT ALL ON *.* TO root@'0.0.0.0' IDENTIFIED BY 'secret' WITH GRANT OPTION;"
-service mysql restart
-
-mysql --user="root" --password="secret" -e "CREATE USER 'homestead'@'0.0.0.0' IDENTIFIED BY 'secret';"
-mysql --user="root" --password="secret" -e "GRANT ALL ON *.* TO 'homestead'@'0.0.0.0' IDENTIFIED BY 'secret' WITH GRANT OPTION;"
-mysql --user="root" --password="secret" -e "GRANT ALL ON *.* TO 'homestead'@'%' IDENTIFIED BY 'secret' WITH GRANT OPTION;"
-mysql --user="root" --password="secret" -e "FLUSH PRIVILEGES;"
-mysql --user="root" --password="secret" -e "CREATE DATABASE homestead;"
-service mysql restart
-
-# Add Timezone Support To MySQL
-
-mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql --user=root --password=secret mysql
-
-# Install A Few Other Things
-
-apt-get install -y redis-server memcached
-sed -i "s/daemonize yes/daemonize no/" /etc/redis/redis.conf
-
-# Configure default nginx site
-
-block="server {
-    listen 80 default_server;
-    listen [::]:80 default_server ipv6only=on;
-
-    root /www/eBizTop/public;
-    server_name localhost;
-
-    index index.html index.htm index.php;
-
-    charset utf-8;
-
-    location / {
-        try_files \$uri \$uri/ /index.php?\$query_string;
-    }
-
-    location = /favicon.ico { access_log off; log_not_found off; }
-    location = /robots.txt  { access_log off; log_not_found off; }
-
-    access_log off;
-    error_log  /var/log/nginx/app-error.log error;
-
-    error_page 404 /index.php;
-
-    sendfile off;
-
-    location ~ \.php$ {
-        fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_pass unix:/run/php/php7.0-fpm.sock;
-        fastcgi_index index.php;
-        include fastcgi.conf;
-    }
-
-    location ~ /\.ht {
-        deny all;
-    }
-}
-"
-
-rm /etc/nginx/sites-enabled/default
-rm /etc/nginx/sites-available/default
-
-cat > /etc/nginx/sites-enabled/default
-echo "$block" > "/etc/nginx/sites-enabled/default"
+# clean up our mess
+RUN apt-get remove --purge -y software-properties-common && \
+    apt-get autoremove -y && \
+    apt-get clean && \
+    apt-get autoclean && \
+    echo -n > /var/lib/apt/extended_states && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /usr/share/man/?? && \
+    rm -rf /usr/share/man/??_*
