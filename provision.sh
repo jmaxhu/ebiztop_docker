@@ -171,7 +171,7 @@ mkfontscale
 mkfontdir
 
 # clean up our mess
-RUN apt-get remove --purge -y software-properties-common && \
+apt-get remove --purge -y software-properties-common && \
     apt-get autoremove -y && \
     apt-get clean && \
     apt-get autoclean && \
