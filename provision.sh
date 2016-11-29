@@ -16,7 +16,7 @@ locale-gen en_US.UTF-8
 export LANG=en_US.UTF-8
 
 # Basic packages
-apt-get install -y sudo software-properties-common nano curl \
+apt-get install -y sudo software-properties-common nano curl wget \
 build-essential dos2unix gcc git git-flow libmcrypt4 libpcre3-dev apt-utils xfonts-utils \
 make python2.7-dev python-pip re2c supervisor unattended-upgrades whois vim zip unzip libnotify-bin \
 
