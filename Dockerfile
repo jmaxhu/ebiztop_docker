@@ -5,7 +5,7 @@ MAINTAINER James Maxwell <james.maxwell.hu@gmail.com>
 ENV DEBIAN_FRONTEND noninteractive
 
 # Change apt sources
-ADD sources.list.xenial /etc/apt/sources.list
+# ADD sources.list.xenial /etc/apt/sources.list
 
 # Install packages
 ADD provision.sh /provision.sh
