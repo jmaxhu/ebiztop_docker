@@ -16,8 +16,8 @@ locale-gen en_US.UTF-8
 export LANG=en_US.UTF-8
 
 # Basic packages
-apt-get install -y sudo software-properties-common nano curl wget \
-build-essential dos2unix gcc git git-flow libmcrypt4 libpcre3-dev apt-utils xfonts-utils \
+apt-get install -y sudo software-properties-common curl \
+build-essential dos2unix gcc git libmcrypt4 libpcre3-dev apt-utils xfonts-utils \
 make python2.7-dev python-pip re2c supervisor unattended-upgrades whois vim zip unzip libnotify-bin \
 
 # for phantomjs
@@ -60,23 +60,13 @@ ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 # Install PHP Stuffs
 
 apt-get install -y --force-yes php7.0-cli php7.0-dev \
-php-pgsql php-sqlite3 php-gd php-apcu \
+php-gd php-apcu \
 php-curl php7.0-mcrypt \
 php-imap php-mysql php-memcached php7.0-readline php-xdebug \
 php-mbstring php-xml php7.0-zip php7.0-intl php7.0-bcmath php-soap
 
 # Enable mcrypt
 phpenmod mcrypt
-
-# Install Composer
-
-curl -sS https://getcomposer.org/installer | php
-mv composer.phar /usr/local/bin/composer
-
-# Add Composer Global Bin To Path
-
-printf "\nPATH=\"$(sudo su - homestead -c 'composer config -g home 2>/dev/null')/vendor/bin:\$PATH\"\n" | tee -a /home/homestead/.profile
-
 
 # Set Some PHP CLI Settings
 
@@ -160,9 +150,10 @@ apt-get install -y nodejs
 
 # Install phantomjs
 export PHANTOM_JS="phantomjs-2.1.1-linux-x86_64"
-wget https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_JS.tar.bz2
+curl -O https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_JS.tar.bz2
 tar xvjf $PHANTOM_JS.tar.bz2
 mv $PHANTOM_JS /usr/local/share
+rm $PHANTOM_JS.tar.bz2
 ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin
 
 # Install simsun font
