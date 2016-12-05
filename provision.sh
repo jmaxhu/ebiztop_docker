@@ -179,6 +179,7 @@ block="server {
     server_name localhost;
     index index.html index.htm index.php;
     charset utf-8;
+		client_max_body_size 500m;
     location / {
         try_files \$uri \$uri/ /index.php?\$query_string;
     }
