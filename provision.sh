@@ -148,12 +148,10 @@ apt-get install -y nodejs
 /usr/bin/npm install -g pm2
 
 # Install phantomjs from local package
-cd /
-export PHANTOM_JS="phantomjs-2.1.1-linux-x86_64"
-tar xvjf $PHANTOM_JS.tar.bz2
-mv $PHANTOM_JS /usr/local/share
-rm $PHANTOM_JS.tar.bz2
-ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin
+tar xvjf /phantomjs-2.1.1-linux-x86_64.tar.bz2
+mv /phantomjs-2.1.1-linux-x86_64 /usr/local/share
+rm /phantomjs-2.1.1-linux-x86_64.tar.bz2
+ln -sf /usr/local/share/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin
 
 # Install simsun font
 chmod 644 /usr/share/fonts/simsun.ttc
