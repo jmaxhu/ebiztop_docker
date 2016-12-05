@@ -47,8 +47,7 @@ curl --silent --location https://deb.nodesource.com/setup_6.x | bash -
 apt-get update
 
 # Create homestead user
-adduser homestead
-usermod -p $(echo secret | openssl passwd -1 -stdin) homestead
+adduser -m -p secret -s /bin/bash homestead
 # Add homestead to the sudo group and www-data
 usermod -aG sudo homestead
 usermod -aG www-data homestead
@@ -149,8 +148,8 @@ apt-get install -y nodejs
 /usr/bin/npm install -g pm2
 
 # Install phantomjs
+cd /
 export PHANTOM_JS="phantomjs-2.1.1-linux-x86_64"
-curl -O https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_JS.tar.bz2
 tar xvjf $PHANTOM_JS.tar.bz2
 mv $PHANTOM_JS /usr/local/share
 rm $PHANTOM_JS.tar.bz2
