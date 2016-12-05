@@ -47,7 +47,7 @@ curl --silent --location https://deb.nodesource.com/setup_6.x | bash -
 apt-get update
 
 # Create homestead user
-adduser -m -p secret -s /bin/bash homestead
+useradd -m -p secret -s /bin/bash homestead
 # Add homestead to the sudo group and www-data
 usermod -aG sudo homestead
 usermod -aG www-data homestead
