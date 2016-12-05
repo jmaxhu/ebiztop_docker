@@ -148,8 +148,8 @@ apt-get install -y nodejs
 /usr/bin/npm install -g pm2
 
 # Install phantomjs from local package
-tar xvjf /phantomjs-2.1.1-linux-x86_64.tar.bz2
-mv /phantomjs-2.1.1-linux-x86_64 /usr/local/share
+tar xjvf /phantomjs-2.1.1-linux-x86_64.tar.bz2
+mv phantomjs-2.1.1-linux-x86_64 /usr/local/share
 rm /phantomjs-2.1.1-linux-x86_64.tar.bz2
 ln -sf /usr/local/share/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin
 
