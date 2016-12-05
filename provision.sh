@@ -147,7 +147,7 @@ apt-get install -y nodejs
 # Install pm2
 /usr/bin/npm install -g pm2
 
-# Install phantomjs
+# Install phantomjs from local package
 cd /
 export PHANTOM_JS="phantomjs-2.1.1-linux-x86_64"
 tar xvjf $PHANTOM_JS.tar.bz2
