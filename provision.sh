@@ -58,44 +58,41 @@ ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 # Install PHP Stuffs
 
-apt-get install -y --force-yes php7.0-cli php7.0-dev \
-php-gd php-apcu \
-php-curl php7.0-mcrypt \
-php-imap php-mysql php-memcached php7.0-readline php-xdebug \
-php-mbstring php-xml php7.0-zip php7.0-intl php7.0-bcmath php-soap
+apt-get install -y --force-yes php7.1-cli php7.1-dev \
+php7.1-gd php7.1-curl php7.1-memcached \
+php7.1-imap php7.1-mysql php7.1-mbstring \
+php7.1-xml php7.1-zip php7.1-bcmath php7.1-soap \
+php7.1-intl php7.1-readline php-xdebug
 
 # Enable mcrypt
 phpenmod mcrypt
 
 # Set Some PHP CLI Settings
 
-sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.0/cli/php.ini
-sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.0/cli/php.ini
-sudo sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/7.0/cli/php.ini
-sudo sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/7.0/cli/php.ini
+sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.1/cli/php.ini
+sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.1/cli/php.ini
+sudo sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/7.1/cli/php.ini
+sudo sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/7.1/cli/php.ini
 
 # Install Nginx & PHP-FPM
 
-apt-get install -y --force-yes nginx php7.0-fpm
+apt-get install -y --force-yes nginx php7.1-fpm
 
 # Setup Some PHP-FPM Options
 
-echo "xdebug.remote_enable = 1" >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini
-echo "xdebug.remote_connect_back = 1" >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini
-echo "xdebug.remote_port = 9000" >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini
-echo "xdebug.var_display_max_depth = -1" >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini
-echo "xdebug.var_display_max_children = -1" >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini
-echo "xdebug.var_display_max_data = -1" >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini
-echo "xdebug.max_nesting_level = 500" >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini
+echo "xdebug.remote_enable = 1" >> /etc/php/7.1/mods-available/xdebug.ini
+echo "xdebug.remote_connect_back = 1" >> /etc/php/7.1/mods-available/xdebug.ini
+echo "xdebug.remote_port = 9000" >> /etc/php/7.1/mods-available/xdebug.ini
+echo "xdebug.max_nesting_level = 512" >> /etc/php/7.1/mods-available/xdebug.ini
+echo "opcache.revalidate_freq = 0" >> /etc/php/7.1/mods-available/opcache.ini
 
-sed -i "s/.*daemonize.*/daemonize = no/" /etc/php/7.0/fpm/php-fpm.conf
-sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.0/fpm/php.ini
-sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.0/fpm/php.ini
-sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.0/fpm/php.ini
-sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/7.0/fpm/php.ini
-sed -i "s/upload_max_filesize = .*/upload_max_filesize = 500M/" /etc/php/7.0/fpm/php.ini
-sed -i "s/post_max_size = .*/post_max_size = 500M/" /etc/php/7.0/fpm/php.ini
-sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/7.0/fpm/php.ini
+sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.1/fpm/php.ini
+sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.1/fpm/php.ini
+sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.1/fpm/php.ini
+sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/7.1/fpm/php.ini
+sed -i "s/upload_max_filesize = .*/upload_max_filesize = 500M/" /etc/php/7.1/fpm/php.ini
+sed -i "s/post_max_size = .*/post_max_size = 500M/" /etc/php/7.1/fpm/php.ini
+sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/7.1/fpm/php.ini
 
 # Disable XDebug On The CLI
 
@@ -133,12 +130,12 @@ sed -i "s/# server_names_hash_bucket_size.*/server_names_hash_bucket_size 64;/" 
 sed -i "s/client_max_body_size.*;/client_max_body_size 500m;/" /etc/nginx/nginx.conf
 
 mkdir -p /run/php
-touch /run/php/php7.0-fpm.sock
-sed -i "s/user = www-data/user = homestead/" /etc/php/7.0/fpm/pool.d/www.conf
-sed -i "s/group = www-data/group = homestead/" /etc/php/7.0/fpm/pool.d/www.conf
-sed -i "s/listen\.owner.*/listen.owner = homestead/" /etc/php/7.0/fpm/pool.d/www.conf
-sed -i "s/listen\.group.*/listen.group = homestead/" /etc/php/7.0/fpm/pool.d/www.conf
-sed -i "s/;listen\.mode.*/listen.mode = 0666/" /etc/php/7.0/fpm/pool.d/www.conf
+touch /run/php/php7.1-fpm.sock
+sed -i "s/user = www-data/user = homestead/" /etc/php/7.1/fpm/pool.d/www.conf
+sed -i "s/group = www-data/group = homestead/" /etc/php/7.1/fpm/pool.d/www.conf
+sed -i "s/listen\.owner.*/listen.owner = homestead/" /etc/php/7.1/fpm/pool.d/www.conf
+sed -i "s/listen\.group.*/listen.group = homestead/" /etc/php/7.1/fpm/pool.d/www.conf
+sed -i "s/;listen\.mode.*/listen.mode = 0666/" /etc/php/7.1/fpm/pool.d/www.conf
 
 # Install Node
 
@@ -186,7 +183,7 @@ block="server {
     sendfile off;
     location ~ \.php$ {
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+        fastcgi_pass unix:/run/php/php7.1-fpm.sock;
         fastcgi_index index.php;
         include fastcgi.conf;
     }
